@@ -1,0 +1,61 @@
+{% extends 'base2.html' %}
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <center><h2>Recent Recommendations</h2></center>
+        </div>
+        <div class="wrapper">
+            <div class="container d-flex flex-column">
+                <div class="title text-center">
+                    <b>Currently under progress</b>
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $('.search').on('keyup',function(){
+                            var searchTerm = $(this).val().toLowerCase();
+                            $('#userTbl tbody tr').each(function(){
+                                var lineStr = $(this).text().toLowerCase();
+                                if(lineStr.indexOf(searchTerm) === -1){
+                                    $(this).hide();
+                                }else{
+                                    $(this).show();
+                                }
+                            });
+                        });
+                    });
+                </script>
+                <div class="form-group pull-left">
+                    <input type="text" class="search form-control" placeholder="Search for Device Number ...">
+                </div>
+                <table class="table" id="userTbl">
+                    <thead>
+                        <tr class="table-info">
+                            <th style="width:20%"><center>Date</center></th>
+                            <th style="width:20%"><center>Device Number</center></th>
+                            <th style="width:20%"><center>Recommended Crop</center></th>
+                            <th style="width:10%"><center>Nitrogen</center></th>
+                            <th style="width:10%"><center>Phosporous</center></th>
+                            <th style="width:10%"><center>Potassium</center></th>
+                            <th style="width:10%"><center>pH Level</center></th>
+                        </tr>
+                    </thead>
+                    {% for info in data %}
+                    <tbody>
+                        <tr>
+                           <td><center>{{info.date}}</center></td>
+                           <td><center>{{info.dn}}</center></td>
+                           <td><center>{{info.recom}}</center></td>
+                           <td><center>{{info.nitro}}</center></td>
+                           <td><center>{{info.phos}}</center></td>
+                           <td><center>{{info.kpos}}</center></td>
+                           <td><center>{{info.phL}}</center></td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock content %}
