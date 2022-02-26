@@ -28,23 +28,11 @@ def welcome():
 @app.route('/recommendations')
 @login_required
 def recommendations():
-    date = ["03/02/22", "03/01/22", "02/22/22", "02/21/22"]
-    dn = ["RM-22-0001", "RM-22-0004", "RM-22-0005", "RM-22-0001"]
-    recom = ["Maize", "Rice", "Rice", "Corn"]
-    nitro = [22, 23, 22, 12]
-    phos = [65, 24, 33, 22]
-    kpos = [12, 22, 32, 44]
-    phL = [6.7, 6.2, 7.1, 6.3]
+    response = requests.get('https://api01crop.herokuapp.com/recommendation')
     table_list = []
-    for a in range(len(date)):
-        table_list.append({'date': date[a],
-                            'dn': dn[a],
-                            'recom': recom[a],
-                            'nitro': nitro[a],
-                            'phos': phos[a],
-                            'kpos': kpos[a],
-                            'phL':phL[a]})
-    return render_template("recommendation.html", title="Recommendations", data=table_list)
+    for data in response.json():
+        table_list.append(data)
+    return render_template("recom_list.html", title="Recommendations", data=table_list)
 
 @app.route("/about")
 def about():

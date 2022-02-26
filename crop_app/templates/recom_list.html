@@ -7,9 +7,6 @@
         </div>
         <div class="wrapper">
             <div class="container d-flex flex-column">
-                <div class="title text-center">
-                    <b>Currently under progress</b>
-                </div>
                 <script>
                     $(document).ready(function(){
                         $('.search').on('keyup',function(){
@@ -44,12 +41,12 @@
                     <tbody>
                         <tr>
                            <td><center>{{info.date}}</center></td>
-                           <td><center>{{info.dn}}</center></td>
-                           <td><center>{{info.recom}}</center></td>
-                           <td><center>{{info.nitro}}</center></td>
-                           <td><center>{{info.phos}}</center></td>
-                           <td><center>{{info.kpos}}</center></td>
-                           <td><center>{{info.phL}}</center></td>
+                           <td><center>{{info.device_number}}</center></td>
+                           <td><center>{{info.recommended}}</center></td>
+                           <td><center>{{info.nitrogen_content}}</center></td>
+                           <td><center>{{info.phosphorous_content}}</center></td>
+                           <td><center>{{info.potassium_content}}</center></td>
+                           <td><center>{{info.ph_level_content}}</center></td>
                         </tr>
                     </tbody>
                     {% endfor %}
