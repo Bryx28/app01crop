@@ -8,16 +8,22 @@ from PIL import Image
 
 posts = [
     {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
+        'author': 'John Brian F. Quebral',
+        'title': 'Update Version 0.7',
+        'content': """Created a table for the soil testing 
+                      parameters such as Nitrogen, Phosphorous,
+                      Potassium and pH Level and show the details
+                      such as the time the soil is tested and the
+                      real-time recommended crops.""",
+        'date_posted': 'March 1, 2022'
     },
     {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
+        'author': 'John Brian F. Quebral',
+        'title': 'Update Version 0.65',
+        'content': """Deployed the sample web application in 
+                      the Heroku Free Cloud Deployment Website 
+                      and committed the application and API.""",
+        'date_posted': 'February 21, 2018'
     }
 ]
 
