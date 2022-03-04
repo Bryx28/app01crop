@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from crop_app import app, bcrypt
-from crop_app.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from crop_app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from crop_app.models import User
 import requests, json, secrets, os
 from flask_login import login_user, current_user, logout_user, login_required
@@ -52,6 +52,11 @@ def developers():
 @login_required
 def dashboard():
     return render_template("dashboard.html", title="Dashboard")
+
+@app.route("/forums")
+@login_required
+def forums():
+    return render_template("forums.html", title="Forums")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -151,6 +156,15 @@ def update_account():
         form.image.data = current_user.user_image
     return render_template('update_info.html', title="Update Account",
                             form = form)
+
+@app.route("/post/new", methods=['POST', 'GET'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Your post has been created!', 'success')
+        return redirect(url_for('forums'))
+    return render_template('create_post.html', title="New Post", form=form)
 
 @app.route('/logout')
 def logout():

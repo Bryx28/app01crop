@@ -28,3 +28,6 @@ class User(UserMixin):
         self.user_lname = self.user_data['user_lname']
         self.username = self.user_data['username']
         self.email = self.user_data['email']
+
+class Post(UserMixin):
+    pass
