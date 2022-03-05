@@ -56,7 +56,11 @@ def dashboard():
 @app.route("/forums")
 @login_required
 def forums():
-    return render_template("forums.html", title="Forums")
+    response = requests.get('https://api01crop.herokuapp.com/get_posts')
+    post = []
+    for row in response.json():
+        post.append(row)
+    return render_template("forums.html", title="Forums", posts=post)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -162,8 +166,18 @@ def update_account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        flash('Your post has been created!', 'success')
-        return redirect(url_for('forums'))
+        print(current_user.user_id)
+        new_post_dict = {
+                            "title": form.title.data,
+                            "content": form.content.data,
+                            "author": current_user.user_id
+                        }
+        new_post_json = json.dumps(new_post_dict, indent=4)
+        headers = {'Content-type':"application/json"}
+        response = requests.post('https://api01crop.herokuapp.com/new_post', headers=headers, data=new_post_json)
+        if response.status_code == 200:
+            flash('Your post has been created!', 'success')
+            return redirect(url_for('forums'))
     return render_template('create_post.html', title="New Post", form=form)
 
 @app.route('/logout')
