@@ -168,7 +168,8 @@ def new_post():
     if form.validate_on_submit():
         new_post_dict = {
                             "title": form.title.data,
-                            "content": form.content.data
+                            "content": form.content.data,
+                            "author" : current_user.user_id
                         }
         new_post_json = json.dumps(new_post_dict, indent=4)
         headers = {'Content-type':"application/json"}
