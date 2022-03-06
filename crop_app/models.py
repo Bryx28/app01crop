@@ -6,9 +6,10 @@ import requests
 def load_user(user_id):
     if type(user_id) is not None:
         data = requests.get(f'https://api01crop.herokuapp.com/load_user/{user_id}')
+        return User(data)
     else:
         data = None
-    return User(data)
+        return data
 
 class User(UserMixin):
     def __init__(self, user_json):

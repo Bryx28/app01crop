@@ -162,15 +162,13 @@ def update_account():
                             form = form)
 
 @app.route("/post/new", methods=['POST', 'GET'])
-@login_required
+#@login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        print(current_user.user_id)
         new_post_dict = {
                             "title": form.title.data,
-                            "content": form.content.data,
-                            "author": current_user.user_id
+                            "content": form.content.data
                         }
         new_post_json = json.dumps(new_post_dict, indent=4)
         headers = {'Content-type':"application/json"}
