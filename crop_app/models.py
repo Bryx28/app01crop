@@ -30,5 +30,17 @@ class User(UserMixin):
         self.username = self.user_data['username']
         self.email = self.user_data['email']
 
+    def get_object(self):
+        data = {
+                    "user_id": self.user_id,
+                    "user_image": self.user_image,
+                    "user_fname": self.user_fname,
+                    "user_mname": self.user_mname,
+                    "user_lname": self.user_lname,
+                    "username": self.username,
+                    "email": self.email
+               }
+        return data
+
 class Post(UserMixin):
     pass

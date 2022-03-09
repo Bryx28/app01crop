@@ -60,6 +60,7 @@ def forums():
     post = []
     for row in response.json():
         post.append(row)
+    print(post)
     return render_template("forums.html", title="Forums", posts=post)
 
 @app.route("/register", methods=['GET', 'POST'])
