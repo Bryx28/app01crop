@@ -180,6 +180,16 @@ def new_post():
             return redirect(url_for('forums'))
     return render_template('create_post.html', title="New Post", form=form)
 
+@app.route("/post/<int:post_id>")
+@login_required
+def post(post_id):
+    response = requests.get(f'https://api01crop.herokuapp.com/post/{post_id}')
+    post = []
+    for row in response.json():
+        post.append(row)
+    print(post)
+    return render_template("post.html", title=post[0].title, posts=post)
+
 @app.route('/logout')
 def logout():
     logout_user()
