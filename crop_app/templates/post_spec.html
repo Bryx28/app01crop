@@ -10,7 +10,6 @@
                 <center><h3 class="article-title">New Stories in the block</h3></center>
             </div>
             </article>
-            {% for post in posts %}
             <article class="media content-section">
                 <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.user_image)}}">
                 <div class="media-body">
@@ -23,7 +22,6 @@
                 
                 </div>
             </article>
-            {% endfor %}
         </div>
     </article>
 {% endblock content %}
