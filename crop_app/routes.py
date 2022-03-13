@@ -9,6 +9,15 @@ from PIL import Image
 posts = [
     {
         'author': 'John Brian F. Quebral',
+        'title': 'Update Version 0.9',
+        'content': """Added the Forum for posting new updates
+                      from different farmers around the country.
+                      They can also Update and Delete the posts
+                      created by the owners.""",
+        'date_posted': 'March 14, 2022'
+    },
+    {
+        'author': 'John Brian F. Quebral',
         'title': 'Update Version 0.7',
         'content': """Created a table for the soil testing 
                       parameters such as Nitrogen, Phosphorous,
