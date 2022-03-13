@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from crop_app import app, bcrypt
 from crop_app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from crop_app.models import User
@@ -60,7 +60,6 @@ def forums():
     post = []
     for row in response.json():
         post.append(row)
-    print(post)
     return render_template("forums.html", title="Forums", posts=post)
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -146,10 +145,11 @@ def update_account():
                             'email':form.email.data,
                             'user_image':image_file
                         }
-        new_user_json = json.dumps(new_user_dict, indent=4)
+        updated_account_json = json.dumps(new_user_dict, indent=4)
         headers = {'Content-type':"application/json"}
         requests.put(f'https://api01crop.herokuapp.com/update_account/{current_user.user_id}', 
-                     headers=headers, data=new_user_json)
+                     headers=headers, 
+                     data=updated_account_json)
         flash('Your Account has been Updated!', 'success')
         return redirect(url_for('account'))
     elif request.method == 'GET':
@@ -174,19 +174,60 @@ def new_post():
                         }
         new_post_json = json.dumps(new_post_dict, indent=4)
         headers = {'Content-type':"application/json"}
-        response = requests.post('https://api01crop.herokuapp.com/new_post', headers=headers, data=new_post_json)
+        response = requests.post('https://api01crop.herokuapp.com/new_post', 
+                                headers=headers, 
+                                data=new_post_json)
         if response.status_code == 200:
             flash('Your post has been created!', 'success')
             return redirect(url_for('forums'))
-    return render_template('create_post.html', title="New Post", form=form)
+    return render_template('create_post.html', title="New Post", 
+                            form=form, legend="New Post")
 
 @app.route("/post/<int:post_id>")
 @login_required
 def post(post_id):
     response = requests.get(f'https://api01crop.herokuapp.com/post/{post_id}')
     post = response.json()
-    print(post)
     return render_template("post_spec.html", title=post['title'], post=post)
+
+@app.route("/update_post/<int:post_id>", methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    response = requests.get(f'https://api01crop.herokuapp.com/post/{post_id}')
+    post = response.json()
+    if post['author']['email'] != current_user.email:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        update_title = form.title.data
+        update_content = form.content.data
+        update_post_dict = {
+                                "title": update_title,
+                                "content": update_content
+                            }
+        update_post_json = json.dumps(update_post_dict, indent=4)
+        headers = {'Content-type':"application/json"}
+        requests.put(f"https://api01crop.herokuapp.com/update_post/{post['id']}", 
+                     headers=headers,
+                     data=update_post_json)
+        flash('Your Post has been Updated!', 'success')
+        return redirect(url_for('post',post_id=post['id']))
+    elif request.method == "GET":
+        form.title.data = post['title']
+        form.content.data = post['content']
+    return render_template('create_post.html', title="Update Post",
+                             form=form, legend="Update Post")
+
+@app.route("/delete_post/<int:post_id>", methods=['POST'])
+@login_required
+def delete_post(post_id):
+    response = requests.get(f'https://api01crop.herokuapp.com/post/{post_id}')
+    post = response.json()
+    if post['author']['email'] != current_user.email:
+        abort(403)
+    requests.delete(f'https://api01crop.herokuapp.com/delete_post/{post_id}')
+    flash('Your post has been deleted!', 'success')
+    return redirect(url_for('forums'))
 
 @app.route('/logout')
 def logout():

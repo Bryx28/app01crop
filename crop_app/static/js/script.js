@@ -24,4 +24,4 @@ window.onload = function() {
   });
   chart.render();
   
-  }
+}
