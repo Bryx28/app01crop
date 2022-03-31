@@ -100,7 +100,7 @@ def login():
         return redirect(url_for('welcome'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = requests.get(f'https://api01crop.herokuapp.com/existing_username/{form.username.data}')
+        user = requests.get(f'https://api01crop.herokuapp.com/existing_username/?username={form.username.data}')
         data = user.json()
         if data != {}:
             username = data['username']

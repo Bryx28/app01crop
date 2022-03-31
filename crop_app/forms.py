@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
-        user = requests.get(f'https://api01crop.herokuapp.com/existing_username/{username.data}')
+        user = requests.get(f'https://api01crop.herokuapp.com/existing_username/?username={username.data}')
         data =  user.json()
         if data != {}:
             existing = data['username']
@@ -55,7 +55,7 @@ class UpdateAccountForm(FlaskForm):
 
     def validate_username(self, username):
         if username.data != current_user.username:
-            user = requests.get(f'https://api01crop.herokuapp.com/existing_username/{username.data}')
+            user = requests.get(f'https://api01crop.herokuapp.com/existing_username/?username={username.data}')
             data =  user.json()
             if data != {}:
                 existing = data['username']
