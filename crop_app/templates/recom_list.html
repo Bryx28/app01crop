@@ -37,20 +37,24 @@
                             <th style="width:10%"><center>pH Level</center></th>
                         </tr>
                     </thead>
-                    {% for info in data %}
-                    <tbody>
-                        <tr>
-                           <td><center>{{info.date}}</center></td>
-                           <td><center>{{info.device_number}}</center></td>
-                           <td><center>{{info.recommended}}</center></td>
-                           <td><center>{{info.nitrogen_content}}</center></td>
-                           <td><center>{{info.phosphorous_content}}</center></td>
-                           <td><center>{{info.potassium_content}}</center></td>
-                           <td><center>{{info.ph_level_content}}</center></td>
-                        </tr>
-                    </tbody>
-                    {% endfor %}
                 </table>
+                <div style="overflow-x:auto; height: 500px;">
+                    <table class="table" id="userTbl">
+                        {% for info in data %}
+                        <tbody>
+                            <tr>
+                               <td style="width:20%"><center>{{info.date}}</center></td>
+                               <td style="width:20%"><center>{{info.device_number}}</center></td>
+                               <td style="width:20%"><center>{{info.recommended}}</center></td>
+                               <td style="width:10%"><center>{{info.nitrogen_content}}</center></td>
+                               <td style="width:10%"><center>{{info.phosphorous_content}}</center></td>
+                               <td style="width:10%"><center>{{info.potassium_content}}</center></td>
+                               <td style="width:10%"><center>{{info.ph_level_content}}</center></td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>
