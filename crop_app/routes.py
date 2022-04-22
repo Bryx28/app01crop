@@ -65,8 +65,12 @@ def developers():
 def dashboard():
     response = requests.get('https://api01crop.herokuapp.com/dash_info')
     data = response.json()
-    crops = list(data.keys())
-    values = list(data.values())
+    if data is not None:
+        crops = list(data.keys())
+        values = list(data.values())
+    else:
+        crops = ["No Crop"]
+        values = [1]
     total_len = len(crops)
     bkg_color = ["rgba(255, 0, 0, 0.2)", "rgba(0, 128, 128, 0.2)",
                  "rgba(188, 143, 143, 0.2)", "rgba(210, 180, 140, 0.2))",
