@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from crop_app import app, bcrypt
 from crop_app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from crop_app.models import User
+import random
 import requests, json, secrets, os
 from flask_login import login_user, current_user, logout_user, login_required
 from PIL import Image
@@ -47,7 +48,9 @@ def recommendations():
     table_list = []
     for data in response.json():
         table_list.append(data)
-    return render_template("recom_list.html", title="Recommendations", data=table_list)
+    return render_template("recom_list.html", 
+                            title="Recommendations", 
+                            data=table_list)
 
 @app.route("/about")
 def about():
@@ -60,7 +63,48 @@ def developers():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html", title="Dashboard")
+    response = requests.get('https://api01crop.herokuapp.com/dash_info')
+    data = response.json()
+    crops = list(data.keys())
+    values = list(data.values())
+    total_len = len(crops)
+    bkg_color = ["rgba(255, 0, 0, 0.2)", "rgba(0, 128, 128, 0.2)",
+                 "rgba(188, 143, 143, 0.2)", "rgba(210, 180, 140, 0.2))",
+                 "rgba(255, 165, 0, 0.2)", "rgba(255, 215, 0, 0.2)",
+                 "rgba(255, 255, 0, 0.2)", "rgba(128, 128, 0, 0.2)",
+                 "rgba(0, 128, 0, 0.2)", "rgba(0, 255, 0, 0.2)",
+                 "rgba(128, 0, 0, 0.2)", "rgba(0, 255, 255, 0.2)",
+                 "rgba(0, 0, 255, 0.2)", "rgba(0, 0, 128, 0.2)",
+                 "rgba(128, 0, 128, 0.2)", "rgba(255, 0, 255, 0.2)",
+                 "rgba(255, 192, 203, 0.2)", "rgba(128, 128, 128, 0.2)",
+                 "rgba(192, 192, 192, 0.2)", "rgba(240, 255, 255, 0.2)",
+                 "rgba(255, 69, 0, 0.2)", "rgba(127, 23, 52, 0.2)", #half repeat color scheme
+                 "rgba(205, 133, 63, 0.2)", "rgba(152, 116, 86, 0.2)",
+                 "rgba(255, 127, 80, 0.2)", "rgba(248, 222, 126, 0.2)",
+                 "rgba(255, 253, 208, 0.2)", "rgba(122, 148, 46, 0.2)",
+                 "rgba(118, 255, 122, 0.2)", "rgba(152, 251, 152, 0.2)",]
+    brd_color = ["rgba(255, 0, 0, 1)", "rgba(0, 128, 128, 1)",
+                 "rgba(188, 143, 143, 1)", "rgba(210, 180, 140, 1))",
+                 "rgba(255, 165, 0, 1)", "rgba(255, 215, 0, 1)",
+                 "rgba(255, 255, 0, 1)", "rgba(128, 128, 0, 1)",
+                 "rgba(0, 128, 0, 1)", "rgba(0, 255, 0, 1)",
+                 "rgba(128, 0, 0, 1)", "rgba(0, 255, 255, 1)",
+                 "rgba(0, 0, 255, 1)", "rgba(0, 0, 128, 1)",
+                 "rgba(128, 0, 128, 1)", "rgba(255, 0, 255, 1)",
+                 "rgba(255, 192, 203, 1)", "rgba(128, 128, 128, 1)",
+                 "rgba(192, 192, 192, 1)", "rgba(240, 255, 255, 1)",
+                 "rgba(255, 69, 0, 1)", "rgba(127, 23, 52, 1)", #half repeat color scheme
+                 "rgba(205, 133, 63, 1)", "rgba(152, 116, 86, 1)",
+                 "rgba(255, 127, 80, 1)", "rgba(248, 222, 126, 1)",
+                 "rgba(255, 253, 208, 1)", "rgba(122, 148, 46, 1)",
+                 "rgba(118, 255, 122, 1)", "rgba(152, 251, 152, 1)",]
+    return render_template("dashboard.html", 
+                            title="Dashboard", 
+                            crops=crops, 
+                            values=values,
+                            total_len=total_len,
+                            bkg = bkg_color[:total_len],
+                            brd = brd_color[:total_len])
 
 @app.route("/forums")
 @login_required

@@ -8,36 +8,18 @@
         <div class="wrapper">
             <div class="container d-flex flex-column">
                 <div class="title text-center">
-                    <script>
-                        window.onload = function() {
-
-                        var chart = new CanvasJS.Chart("cropChart", {
-                          animationEnabled: true,
-                          title: {
-                            text: "Crop Production Percentage"
-                          },
-                          data: [{
-                            type: "pie",
-                            startAngle: 240,
-                            yValueFormatString: "##0.00\"%\"",
-                            indexLabel: "{label} {y}",
-                            dataPoints: [
-                              {y: 18.77, label: "Rice Crop"},
-                              {y: 16.78, label: "Banana"},
-                              {y: 12.25, label: "Mango"},
-                              {y: 12.19, label: "Orange"},
-                              {y: 10.65, label: "Coconut"},
-                              {y: 10.41, label: "Durian"},
-                              {y: 9.92,  label: "Grapes"},
-                              {y: 9.03,  label: "Others"}
-                            ]
-                          }]
-                        });
-                        chart.render();
-                        
-                        }
-                    </script>
-                    <div id="cropChart" style="height: 370px; width: 100%;"></div>
+                    <center><div class="chartBox" style="text-align: center;">
+                        <canvas id="cropChart" style="width: 370px; height: 100%;"></canvas>
+                    </div></center>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    {% for i in range(total_len): %}
+                        <label type="hidden" id="crop_{{i}}" name="{{crops[i]}}"></label>
+                        <label type="hidden" id="value_{{i}}" name={{values[i]}}></label>
+                        <label type="hidden" id="bkg_{{i}}" name="{{bkg[i]}}"></label>
+                        <label type="hidden" id="brd_{{i}}" name="{{brd[i]}}"></label>
+                    {% endfor %}
+                    <input type="hidden" id="total" value={{total_len}}>
+                    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
                 </div>
             </div>
         </div>
