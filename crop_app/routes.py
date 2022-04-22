@@ -99,20 +99,22 @@ def dashboard():
                  "rgba(255, 127, 80, 1)", "rgba(248, 222, 126, 1)",
                  "rgba(255, 253, 208, 1)", "rgba(122, 148, 46, 1)",
                  "rgba(118, 255, 122, 1)", "rgba(152, 251, 152, 1)",]
+        bkg = bkg_color[:total_len]
+        brd = brd_color[:total_len]
     else:
         crops = ["No Crop"]
         values = [1]
         total_len = 1
-        bkg_color = [['"rgba(0, 0, 0, 0.2)"']]
-        brd_color = [['"rgba(0, 0, 0, 1)"']]
+        bkg = ['"rgba(0, 0, 0, 0.2)"']
+        brd = ['"rgba(0, 0, 0, 1)"']
     
     return render_template("dashboard.html", 
                             title="Dashboard", 
                             crops=crops, 
                             values=values,
                             total_len=total_len,
-                            bkg = bkg_color[:total_len],
-                            brd = brd_color[:total_len])
+                            bkg = bkg,
+                            brd = brd)
 
 @app.route("/forums")
 @login_required
