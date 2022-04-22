@@ -68,11 +68,8 @@ def dashboard():
     if data is not None:
         crops = list(data.keys())
         values = list(data.values())
-    else:
-        crops = ["No Crop"]
-        values = [1]
-    total_len = len(crops)
-    bkg_color = ["rgba(255, 0, 0, 0.2)", "rgba(0, 128, 128, 0.2)",
+        total_len = len(crops)
+        bkg_color = ["rgba(255, 0, 0, 0.2)", "rgba(0, 128, 128, 0.2)",
                  "rgba(188, 143, 143, 0.2)", "rgba(210, 180, 140, 0.2))",
                  "rgba(255, 165, 0, 0.2)", "rgba(255, 215, 0, 0.2)",
                  "rgba(255, 255, 0, 0.2)", "rgba(128, 128, 0, 0.2)",
@@ -87,7 +84,7 @@ def dashboard():
                  "rgba(255, 127, 80, 0.2)", "rgba(248, 222, 126, 0.2)",
                  "rgba(255, 253, 208, 0.2)", "rgba(122, 148, 46, 0.2)",
                  "rgba(118, 255, 122, 0.2)", "rgba(152, 251, 152, 0.2)",]
-    brd_color = ["rgba(255, 0, 0, 1)", "rgba(0, 128, 128, 1)",
+        brd_color = ["rgba(255, 0, 0, 1)", "rgba(0, 128, 128, 1)",
                  "rgba(188, 143, 143, 1)", "rgba(210, 180, 140, 1))",
                  "rgba(255, 165, 0, 1)", "rgba(255, 215, 0, 1)",
                  "rgba(255, 255, 0, 1)", "rgba(128, 128, 0, 1)",
@@ -102,6 +99,13 @@ def dashboard():
                  "rgba(255, 127, 80, 1)", "rgba(248, 222, 126, 1)",
                  "rgba(255, 253, 208, 1)", "rgba(122, 148, 46, 1)",
                  "rgba(118, 255, 122, 1)", "rgba(152, 251, 152, 1)",]
+    else:
+        crops = ["No Crop"]
+        values = [1]
+        total_len = 1
+        bkg_color = [['"rgba(0, 0, 0, 0.2)"']]
+        brd_color = [['"rgba(0, 0, 0, 1)"']]
+    
     return render_template("dashboard.html", 
                             title="Dashboard", 
                             crops=crops, 
