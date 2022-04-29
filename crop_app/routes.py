@@ -105,8 +105,8 @@ def dashboard():
         crops = ["No Crop"]
         values = [1]
         total_len = 1
-        bkg = ['"rgba(0, 0, 0, 0.2)"']
-        brd = ['"rgba(0, 0, 0, 1)"']
+        bkg = ["rgba(0, 0, 0, 0.2)"]
+        brd = ["rgba(0, 0, 0, 1)"]
     
     return render_template("dashboard.html", 
                             title="Dashboard", 
