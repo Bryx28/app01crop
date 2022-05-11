@@ -56,6 +56,10 @@ def recommendations():
 def about():
     return render_template("about.html", title="About")
 
+@app.route("/crop-map")
+def crop_map():
+    return render_template("mapping.html", title="Crop Map")
+
 @app.route("/developers")
 def developers():
     return render_template("developers.html", title="Developers")

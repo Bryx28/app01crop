@@ -1,0 +1,18 @@
+{% extends 'base2.html' %}
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <center><h2>Crop Mapping</h2></center>
+        </div>
+        <div class="wrapper">
+            <div class="container d-flex flex-column">
+                <center><h5>Map of Crops - Work in Progress!</h5></center>
+                <div id="map" style="width: 402px; height: 433px;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrU2wPP77JoA7GGGBuc_2pfWv7TjyA-Mw&callback=sample"></script>
+                <script type="text/javascript" src="{{ url_for('static', filename='js/new_map.js')}}"></script>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock content %}

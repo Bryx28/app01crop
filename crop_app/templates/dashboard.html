@@ -18,7 +18,7 @@
                         <label type="hidden" id="bkg_{{i}}" name="{{bkg[i]}}"></label>
                         <label type="hidden" id="brd_{{i}}" name="{{brd[i]}}"></label>
                     {% endfor %}
-                    <input type="hidden" id="total" value={{total_len}}>
+                    <label type="hidden" id="total" value={{total_len}}></label>
                     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js')}}"></script>
                 </div>
             </div>
