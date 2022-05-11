@@ -17,6 +17,7 @@ Jinja2==3.0.3
 MarkupSafe==2.1.0
 Pillow==9.0.1
 pycparser==2.21
+python-decouple==3.6
 requests==2.27.1
 six==1.16.0
 urllib3==1.26.8
